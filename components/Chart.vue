@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Statistik Pengunjung</h1>
+    <h1>Statistik</h1>
     <canvas id="myChart"></canvas>
   </div>
 </template>
@@ -14,7 +14,7 @@ const data = {
   labels: labels,
   datasets: [
     {
-      label: "Pengunjung",
+      label: "Omzet",
       backgroundColor: "rgb(38, 92, 181)",
       borderColor: "rgb(255, 99, 132)",
       data: [20, 10, 5, 2, 20, 50, 77],

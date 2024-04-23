@@ -2,48 +2,38 @@
   <div>
     <div class="row">
       <div class="col-lg-2">
-        <Navbar />
+        <span v-if="user">
+          <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
+          <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
+          <Kasir v-if="user.user_metadata.tipe_user == 'kasir'" />
+        </span>
       </div>
 
       <div class="col-lg-10 px-5 py-4">
         <div class="row">
           <h2 class="col-lg-3">Log Activity</h2>
         </div>
-        <div class="my-3">
-          <input
-            v-model="keyword"
-            type="search"
-            class="form-control rounded-5"
-            placeholder="cari obat"
-          />
-        </div>
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">No</th>
-              <th scope="col">Email</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">Waktu</th>
-              <th scope="col">Aktivitas</th>
+              <td>Id</td>
+              <td>Tanggal</td>
+              <td>Waktu</td>
+              <td>Aktivitas</td>
+              <td>user Name</td>
+              <td>Nama</td>
+              <td>tipe_user</td>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
+            <tr v-for="(logactivity, i) in Activity" :key="i">
+              <td>{{ logactivity.id }}.</td>
+              <td>{{ logactivity.Tanggal }}</td>
+              <td>{{ logactivity.Waktu }}</td>
+              <td>{{ logactivity.Aktivitas }}</td>
+              <td>{{ logactivity.username }}</td>
+              <td>{{ logactivity.nama }}</td>
+              <td>{{ logactivity.tipe_user }}</td>
             </tr>
           </tbody>
         </table>
@@ -51,3 +41,22 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+
+const Activity = ref([]);
+
+const getPengunjung = async () => {
+  const { data, error } = await supabase
+    .from("Tbl_LogActivity")
+    .select(`*`)
+    .order("id", { ascending: false });
+  if (data) Activity.value = data;
+};
+
+onMounted(() => {
+  getPengunjung();
+});
+</script>

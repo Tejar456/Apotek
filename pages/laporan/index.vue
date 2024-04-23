@@ -2,7 +2,11 @@
   <div>
     <div class="row">
       <div class="col-lg-2">
-        <Navbar />
+        <span v-if="user">
+          <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
+          <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
+          <NavbarKasir v-if="user.user_metadata.tipe_user == 'kasir'" />
+        </span>
       </div>
 
       <div class="col-lg-10 px-5 py-4">
@@ -11,7 +15,6 @@
         </div>
         <div class="my-3">
           <input
-            v-model="keyword"
             type="search"
             class="form-control rounded-5"
             placeholder="cari obat"
@@ -51,3 +54,7 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const user = useSupabaseUser();
+</script>

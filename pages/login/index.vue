@@ -38,19 +38,6 @@
 </template>
 
 <script setup>
-// const supabase = useSupabaseClient();
-
-// const email = ref("");
-// const password = ref("");
-
-// async function Login() {
-//   const { data, error } = await supabase.auth.signInWithPassword({
-//     email: email.value,
-//     password: password.value,
-//   });
-//   if (data) navigateTo("/");
-// }
-
 const supabase = useSupabaseClient();
 
 const email = ref("");
@@ -61,8 +48,24 @@ const Login = async () => {
     email: email.value,
     password: password.value,
   });
-  if (data) navigateTo("/activity");
+
+  if (data) {
+    navigateTo("/");
+    const user = useSupabaseUser();
+    insertLog(user);
+  }
 };
+
+async function insertLog(user) {
+  const { error } = await supabase.from("Tbl_LogActivity").insert([
+    {
+      Aktivitas: "login",
+      username: user.value.user_metadata.username,
+      nama: user.value.user_metadata.username,
+      tipe_user: user.value.user_metadata.tipe_user,
+    },
+  ]);
+}
 </script>
 
 <style scoped>

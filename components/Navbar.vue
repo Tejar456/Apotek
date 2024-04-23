@@ -23,15 +23,31 @@
       <nuxt-link to="transaksi">
         <p>Transaksi</p>
       </nuxt-link>
-      <nuxt-link to="transaksi/riwayat">
-        <p>Riwayat Transaksi</p>
-      </nuxt-link>
     </nav>
     <div>
-      <p>Logout</p>
+      <!-- <form @submit.prevent="logout"> -->
+      <nuxt-link to="/logout">
+        <button type="submit" class="btn btn-light mb-4">Logout</button>
+      </nuxt-link>
+      <!-- </form> -->
     </div>
   </div>
 </template>
+
+<!-- <script setup>
+const supabase = useSupabaseClient();
+
+const logout = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  await navigateTo('/login');
+};
+</script> -->
 
 <style scoped>
 .nav {
@@ -43,6 +59,7 @@
   height: 100vh;
   padding-left: 30px;
   position: fixed;
+  text-decoration: none;
 }
 
 .nav p {

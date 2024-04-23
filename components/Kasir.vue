@@ -5,11 +5,8 @@
       <p class="mt-3 ms-2">Apotek XYZ</p>
     </div>
     <nav>
-      <nuxt-link to="obat">
-        <p>Kelola Obat</p>
-      </nuxt-link>
-      <nuxt-link to="resep">
-        <p>Kelola Resep</p>
+      <nuxt-link to="transaksi">
+        <p>Transaksi</p>
       </nuxt-link>
     </nav>
     <div>
@@ -30,6 +27,7 @@
   height: 100vh;
   padding-left: 30px;
   position: fixed;
+  text-decoration: none;
 }
 
 .nav p {

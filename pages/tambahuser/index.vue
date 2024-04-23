@@ -2,7 +2,11 @@
   <div>
     <div class="row">
       <div class="col-lg-2">
-        <Navbar />
+        <span v-if="user">
+          <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
+          <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
+          <NavbarKasir v-if="user.user_metadata.tipe_user == 'kasir'" />
+        </span>
       </div>
       <div class="col-lg-10 px-5 py-4">
         <h2>Tambah User</h2>
@@ -20,10 +24,10 @@
                 <option value="kasir">Kasir</option>
               </select>
               <input
-                v-model="nama"
+                v-model="username"
                 type="text"
                 class="form-control mb-3"
-                placeholder="Nama"
+                placeholder="User Name"
               />
               <input
                 v-model="email"
@@ -48,9 +52,10 @@
 
 <script setup>
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
 const tipe_user = ref("");
-const nama = ref("");
+const username = ref("");
 const email = ref("");
 const password = ref("");
 
@@ -60,10 +65,14 @@ async function tambahUser() {
     password: password.value,
     options: {
       data: {
-        nama: nama.value,
+        username: username.value,
         tipe_user: tipe_user.value,
       },
     },
   });
+  if (data) {
+    const { error } = await supabase.auth.signOut();
+    navigateTo("/login");
+  }
 }
 </script>

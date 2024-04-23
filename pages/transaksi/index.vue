@@ -2,13 +2,17 @@
   <div>
     <div class="row">
       <div class="col-lg-2">
-        <Navbar />
+        <span v-if="user">
+          <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
+          <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
+          <NavbarKasir v-if="user.user_metadata.tipe_user == 'kasir'" />
+        </span>
       </div>
       <div class="col-lg-10 px-5 py-4">
         <div class="row">
           <h2 class="col-lg-3">Transaksi</h2>
           <div class="col-lg-9">
-            <nuxt-link to="/transaksi/riwayat">
+            <nuxt-link to="/riwayattransaksi">
               <button type="button" class="btn btn-primary me-5">
                 Riwayat Transaksi
               </button>
@@ -20,18 +24,21 @@
             <form>
               <div class="row">
                 <div class="col-lg-6">
-                  <input
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Tipe Resep"
-                  />
+                  <select
+                    class="form-select mb-3"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Tipe Resep</option>
+                    <option value="resep">Resep</option>
+                    <option value="nonresep">Non resep</option>
+                  </select>
                   <input
                     type="text"
                     class="form-control mb-3"
                     placeholder="No Resep"
                   />
                   <input
-                    type="text"
+                    type="date"
                     class="form-control mb-3"
                     placeholder="Tgl Resep"
                   />
@@ -54,12 +61,12 @@
                     placeholder="Nama Obat"
                   />
                   <input
-                    type="text"
+                    type="number"
                     class="form-control mb-3"
                     placeholder="Harga"
                   />
                   <input
-                    type="text"
+                    type="number"
                     class="form-control mb-3"
                     placeholder="Quantity"
                   />
@@ -72,3 +79,7 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const user = useSupabaseUser();
+</script>

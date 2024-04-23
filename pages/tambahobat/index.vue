@@ -2,7 +2,11 @@
   <div>
     <div class="row">
       <div class="col-lg-2">
-        <Navbar />
+        <span v-if="user">
+          <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
+          <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
+          <NavbarKasir v-if="user.user_metadata.tipe_user == 'kasir'" />
+        </span>
       </div>
       <div class="col-lg-10 px-5 py-4">
         <h2>Tambah Obat</h2>
@@ -10,32 +14,33 @@
           <div class="mb-3">
             <form @submit.prevent="kirimData">
               <input
-                v-model="form.kode_obat"
+                v-model="form.Kode_Obat"
                 type="text"
                 class="form-control mb-3"
                 placeholder="Kode Obat"
               />
               <input
-                v-model="form.nama_obat"
+                v-model="form.Nama_Obat"
                 type="text"
                 class="form-control mb-3"
                 placeholder="Nama Obat"
               />
+              <label for="">Expired Date</label>
               <input
-                v-model="form.expired_date"
+                v-model="form.Expired_Date"
                 type="date"
                 class="form-control mb-3"
                 placeholder="Expired Date"
               />
               <input
-                v-model="form.jumlah"
-                type="text"
+                v-model="form.Jumlah"
+                type="number"
                 class="form-control mb-3"
                 placeholder="Jumlah"
               />
               <input
-                v-model="form.harga"
-                type="text"
+                v-model="form.Harga"
+                type="number"
                 class="form-control mb-3"
                 placeholder="Harga Per Unit"
               />
@@ -50,17 +55,17 @@
 
 <script setup>
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
 const form = ref({
-  kode_obat: "",
-  nama_obat: "",
-  expired_date: "",
-  jumlah: "",
-  harga: "",
+  Kode_Obat: "",
+  Nama_Obat: "",
+  Expired_Date: "",
+  Jumlah: "",
+  Harga: "",
 });
 
 const kirimData = async () => {
-  console.log(form.value);
   const { error } = await supabase.from("Tbl_Obat").insert([form.value]);
   if (!error) navigateTo("/obat");
 };
