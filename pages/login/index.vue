@@ -9,7 +9,7 @@
       </div>
 
       <div class="login col-lg-9">
-        <div class="form">
+        <div class="card">
           <h1>Login Form</h1>
           <form @submit.prevent="Login">
             <div class="mb-3">
@@ -90,7 +90,7 @@ async function insertLog(user) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 }
 
 .login form {
@@ -102,12 +102,12 @@ button {
   border-radius: 15px;
 }
 
-.form {
+.card {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   width: 80%;
   height: 50%;
   border-radius: 32px;

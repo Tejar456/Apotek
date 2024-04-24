@@ -11,7 +11,7 @@
 
       <div class="col-lg-10 px-5 py-4">
         <h1 class="welcome">
-          Hallo Selamat Datang {{ user.user_metadata.username }}
+          Hallo Selamat Datang {{ user.user_metadata.username }} sebagai
           {{ user.user_metadata.tipe_user }}
         </h1>
       </div>

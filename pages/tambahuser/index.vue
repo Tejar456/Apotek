@@ -5,44 +5,46 @@
         <span v-if="user">
           <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
           <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
-          <NavbarKasir v-if="user.user_metadata.tipe_user == 'kasir'" />
+          <Kasir v-if="user.user_metadata.tipe_user == 'kasir'" />
         </span>
       </div>
       <div class="col-lg-10 px-5 py-4">
-        <h2>Tambah User</h2>
-        <div class="my-3">
-          <div class="mb-3">
-            <form @submit.prevent="tambahUser">
-              <select
-                v-model="tipe_user"
-                class="form-select mb-3"
-                aria-label="Default select example"
-              >
-                <option selected>Tipe User</option>
-                <option value="admin">Admin</option>
-                <option value="apoteker">Apoteker</option>
-                <option value="kasir">Kasir</option>
-              </select>
-              <input
-                v-model="username"
-                type="text"
-                class="form-control mb-3"
-                placeholder="User Name"
-              />
-              <input
-                v-model="email"
-                type="email"
-                class="form-control mb-3"
-                placeholder="Email"
-              />
-              <input
-                v-model="password"
-                type="password"
-                class="form-control mb-3"
-                placeholder="Password"
-              />
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+        <div class="card">
+          <h2>Tambah User</h2>
+          <div class="my-3">
+            <div class="mb-3">
+              <form @submit.prevent="tambahUser">
+                <select
+                  v-model="tipe_user"
+                  class="form-select mb-3"
+                  aria-label="Default select example"
+                >
+                  <option selected>Tipe User</option>
+                  <option value="admin">Admin</option>
+                  <option value="apoteker">Apoteker</option>
+                  <option value="kasir">Kasir</option>
+                </select>
+                <input
+                  v-model="username"
+                  type="text"
+                  class="form-control mb-3"
+                  placeholder="User Name"
+                />
+                <input
+                  v-model="email"
+                  type="email"
+                  class="form-control mb-3"
+                  placeholder="Email"
+                />
+                <input
+                  v-model="password"
+                  type="password"
+                  class="form-control mb-3"
+                  placeholder="Password"
+                />
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -74,5 +76,20 @@ async function tambahUser() {
     const { error } = await supabase.auth.signOut();
     navigateTo("/login");
   }
+  // const {} = await supabase.from("User").insert({
+  //   tipe_user: tipe_user.value,
+  //   username: username.value,
+  // });
+  // if (!error) navigateTo("/user");
 }
+
+// const TambahUser = async () => {
+//   console.log(tipe_user.value);
+//   console.log(username.value);
+//   const { error } = await supabase.from("User").insert({
+//     tipe_user: tipe_user.value,
+//     username: username.value,
+//   });
+//   if (!error) navigateTo("/user");
+// };
 </script>

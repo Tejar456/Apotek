@@ -12,4 +12,11 @@
   bottom: 50px;
   right: 50px;
 }
+
+.card {
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 40px;
+}
 </style>
