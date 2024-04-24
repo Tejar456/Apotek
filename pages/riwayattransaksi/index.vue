@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg">
     <div class="row">
       <div class="col-lg-2">
         <span v-if="user">

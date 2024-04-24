@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-2 col-sm-5">
         <span v-if="user">
           <Navbar v-if="user.user_metadata.tipe_user == 'admin'" />
           <Apoteker v-if="user.user_metadata.tipe_user == 'apoteker'" />
@@ -9,7 +9,7 @@
         </span>
       </div>
 
-      <div class="col-lg-10 px-5 py-4">
+      <div class="col-lg-10 col-sm-7 px-5 py-4">
         <div class="card">
           <div class="row">
             <h2 class="col-lg-3">Kelola User</h2>
@@ -66,5 +66,8 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "adminauth",
+});
 const user = useSupabaseUser();
 </script>

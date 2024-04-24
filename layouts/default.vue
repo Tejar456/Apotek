@@ -19,4 +19,8 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 40px;
 }
+
+.bg {
+  background-color: #f5f5f5;
+}
 </style>

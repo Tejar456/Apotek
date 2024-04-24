@@ -19,7 +19,7 @@
                   class="form-select mb-3"
                   aria-label="Default select example"
                 >
-                  <option selected>Tipe User</option>
+                  <option value="">Tipe User</option>
                   <option value="admin">Admin</option>
                   <option value="apoteker">Apoteker</option>
                   <option value="kasir">Kasir</option>
@@ -53,6 +53,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "adminauth",
+});
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 

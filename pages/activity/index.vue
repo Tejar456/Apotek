@@ -45,12 +45,15 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "adminauth",
+});
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 
 const Activity = ref([]);
 
-const getPengunjung = async () => {
+const LogActivity = async () => {
   const { data, error } = await supabase
     .from("Tbl_LogActivity")
     .select(`*`)
@@ -59,6 +62,6 @@ const getPengunjung = async () => {
 };
 
 onMounted(() => {
-  getPengunjung();
+  LogActivity();
 });
 </script>
