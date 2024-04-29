@@ -76,23 +76,16 @@ async function tambahUser() {
     },
   });
   if (data) {
+    TambahUser();
     const { error } = await supabase.auth.signOut();
     navigateTo("/login");
   }
-  // const {} = await supabase.from("User").insert({
-  //   tipe_user: tipe_user.value,
-  //   username: username.value,
-  // });
-  // if (!error) navigateTo("/user");
 }
 
-// const TambahUser = async () => {
-//   console.log(tipe_user.value);
-//   console.log(username.value);
-//   const { error } = await supabase.from("User").insert({
-//     tipe_user: tipe_user.value,
-//     username: username.value,
-//   });
-//   if (!error) navigateTo("/user");
-// };
+const TambahUser = async () => {
+  console.log(tipe_user.value);
+  console.log(username.value);
+  const { error } = await supabase.from("User").insert([tipe_user.value]);
+  if (!error) navigateTo("/user");
+};
 </script>
