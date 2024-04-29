@@ -72,13 +72,13 @@
                       readonly
                     />
                     <input
-                      v-model="jumlah"
+                      v-model="Quantity"
                       type="number"
                       class="form-control mb-3"
                       placeholder="Jumlah"
                     />
 
-                    Rp. {{ total }}
+                    Rp. {{ Total_Bayar }}
                   </div>
                 </div>
               </form>
@@ -94,15 +94,24 @@
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 
-const jumlah = ref();
+const Quantity = ref();
 const harga = ref();
-const total = computed(() => jumlah.value * harga.value);
-
+const Total_Bayar = computed(() => Quantity.value * harga.value);
 const Obat = ref([]);
 
 const getObat = async () => {
   const { data, error } = await supabase.from("Tbl_Obat").select(`*`);
   if (data) Obat.value = data;
+};
+
+const tambahTransaksi = async () => {
+  const { data } = await supabase.from("Tbl_Transaksi").insert({
+    Total_Bayar: Total_Bayar.value,
+    Quantity: Quantity.value,
+  });
+  if (data) {
+    navigateTo("/riwayattransaksi");
+  }
 };
 
 onMounted(() => {
