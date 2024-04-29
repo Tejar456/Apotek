@@ -58,8 +58,8 @@
                       class="form-control mb-3"
                       placeholder="Nama Dokter"
                     />
-                    <select v-model="harga">
-                      <option value="">Nama Obat</option>
+                    <select v-model="harga" class="form-select mb-3">
+                      <option selected value="">Nama Obat</option>
                       <option v-for="(obat, i) in Obat" :value="obat.Harga">
                         {{ obat.Nama_Obat }}
                       </option>
