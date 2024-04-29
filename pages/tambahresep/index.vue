@@ -20,12 +20,7 @@
                   class="form-control mb-3"
                   placeholder="No Resep"
                 />
-                <input
-                  v-model="form.Tgl_Resep"
-                  type="date"
-                  class="form-control mb-3"
-                  placeholder="Tanggal Resep"
-                />
+
                 <input
                   v-model="form.Nama_Pasien"
                   type="text"
@@ -65,7 +60,6 @@ const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 
 const form = ref({
-  Tgl_Resep: "",
   No_Resep: "",
   Nama_Dokter: "",
   Nama_Pasien: "",

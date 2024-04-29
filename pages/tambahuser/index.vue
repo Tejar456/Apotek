@@ -15,7 +15,7 @@
             <div class="mb-3">
               <form @submit.prevent="tambahUser">
                 <select
-                  v-model="tipe_user"
+                  v-model="form.tipe_user"
                   class="form-select mb-3"
                   aria-label="Default select example"
                 >
@@ -25,19 +25,19 @@
                   <option value="kasir">Kasir</option>
                 </select>
                 <input
-                  v-model="username"
+                  v-model="form.username"
                   type="text"
                   class="form-control mb-3"
                   placeholder="User Name"
                 />
                 <input
-                  v-model="email"
+                  v-model="form.email"
                   type="email"
                   class="form-control mb-3"
                   placeholder="Email"
                 />
                 <input
-                  v-model="password"
+                  v-model="form.password"
                   type="password"
                   class="form-control mb-3"
                   placeholder="Password"
@@ -59,33 +59,38 @@ definePageMeta({
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 
-const tipe_user = ref("");
-const username = ref("");
-const email = ref("");
-const password = ref("");
+const form = ref({
+  tipe_user: "",
+  username: "",
+  email: "",
+  password: "",
+});
 
 async function tambahUser() {
   const { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
+    email: form.value.email,
+    password: form.value.password,
     options: {
       data: {
-        username: username.value,
-        tipe_user: tipe_user.value,
+        tipe_user: form.value.tipe_user,
+        username: form.value.username,
       },
     },
   });
+  if (error) throw error;
   if (data) {
-    TambahUser();
-    const { error } = await supabase.auth.signOut();
-    navigateTo("/login");
+    insertUser();
   }
 }
-
-const TambahUser = async () => {
-  console.log(tipe_user.value);
-  console.log(username.value);
-  const { error } = await supabase.from("User").insert([tipe_user.value]);
-  if (!error) navigateTo("/user");
-};
+async function insertUser() {
+  const { error } = await supabase.from("User").insert({
+    id: user.value.id,
+    tipe_user: form.value.tipe_user,
+    username: form.value.username,
+    email: form.value.email,
+    password: form.value.password,
+  });
+  if (error) throw error;
+  if (data) navigateTo("/Login");
+}
 </script>

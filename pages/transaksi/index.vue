@@ -22,7 +22,7 @@
           </div>
           <div class="my-3">
             <div class="mb-3">
-              <form>
+              <form @submit.prevent="tambahTransaksi">
                 <div class="row">
                   <div class="col-lg-6">
                     <select
@@ -86,4 +86,9 @@
 
 <script setup>
 const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
+const tambahTransaksi = async () => {
+  const { data, error } = await supabase.insert([]);
+};
 </script>

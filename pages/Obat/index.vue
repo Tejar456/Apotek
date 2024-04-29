@@ -19,9 +19,6 @@
                   Tambah
                 </button>
               </nuxt-link>
-
-              <button type="button" class="btn btn-primary me-5">Edit</button>
-              <button type="submit" class="btn btn-primary me-5">Hapus</button>
             </div>
           </div>
           <div class="my-3">
