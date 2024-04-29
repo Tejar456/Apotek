@@ -58,21 +58,27 @@
                       class="form-control mb-3"
                       placeholder="Nama Dokter"
                     />
+                    <select v-model="harga">
+                      <option value="">Nama Obat</option>
+                      <option v-for="(obat, i) in Obat" :value="obat.Harga">
+                        {{ obat.Nama_Obat }}
+                      </option>
+                    </select>
                     <input
-                      type="text"
-                      class="form-control mb-3"
-                      placeholder="Nama Obat"
-                    />
-                    <input
+                      v-model="harga"
                       type="number"
                       class="form-control mb-3"
                       placeholder="Harga"
+                      readonly
                     />
                     <input
+                      v-model="jumlah"
                       type="number"
                       class="form-control mb-3"
-                      placeholder="Quantity"
+                      placeholder="Jumlah"
                     />
+
+                    Rp. {{ total }}
                   </div>
                 </div>
               </form>
@@ -88,7 +94,18 @@
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 
-const tambahTransaksi = async () => {
-  const { data, error } = await supabase.insert([]);
+const jumlah = ref();
+const harga = ref();
+const total = computed(() => jumlah.value * harga.value);
+
+const Obat = ref([]);
+
+const getObat = async () => {
+  const { data, error } = await supabase.from("Tbl_Obat").select(`*`);
+  if (data) Obat.value = data;
 };
+
+onMounted(() => {
+  getObat();
+});
 </script>
