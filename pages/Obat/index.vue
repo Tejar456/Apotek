@@ -40,6 +40,8 @@
                 <td>Expired</td>
                 <td>Jumlah</td>
                 <td>Harga</td>
+                <td>Hapus</td>
+                <td>Edit</td>
               </tr>
             </thead>
             <tbody>
@@ -50,7 +52,13 @@
                 <td>{{ obat.Expired_Date }}</td>
                 <td>{{ obat.Jumlah }}</td>
                 <td>{{ obat.Harga }}</td>
-              </tr>
+                <td><button class="btn btn-primary me-5" @click="hapusObat(obat.id)">Hapus</button></td>
+                <td>
+                  <NuxtLink :to="`editobat/${obat.id}`">
+                    <button class="btn btn-primary me-5">Edit</button>
+                  </NuxtLink>
+                </td>
+                </tr>
             </tbody>
           </table>
         </div>
@@ -82,6 +90,14 @@ const getData = async () => {
   }
   if (error) throw error;
 };
+
+async function hapusObat(obatId) {
+  const { error } = await supabase.from("Tbl_Obat").delete().eq('id', obatId)
+  if (!error) {
+    console.log("Berhasil")
+    location.reload();
+}
+}
 
 onMounted(() => {
   getObat();
